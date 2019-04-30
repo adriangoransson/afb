@@ -1,25 +1,32 @@
 <template>
   <div id="app">
-    <h1>Lediga lägenheter på AF Bostäder</h1>
+    <div>
+      <h1>Lediga lägenheter på AF Bostäder</h1>
 
-    <details class="filters"><summary>Filtrera</summary>
-    <Filters
-      :areas="areas"
-      :filters="filters"
-      :maxRent="maxRent"
-      @area="filters.area = $event"
-      @rent="filters.rent = $event"
-      @minRooms="filters.minRooms = $event"
-      @minSquareMeters="filters.minSquareMeters = $event"
-      @shortRentalPeriod="filters.shortRentalPeriod = $event"
-      @firstFloor="filters.firstFloor = $event"
-    />
-  </details>
+      <details class="filters"><summary>Filtrera</summary>
+        <Filters
+          :areas="areas"
+          :filters="filters"
+          :maxRent="maxRent"
+          @area="filters.area = $event"
+          @rent="filters.rent = $event"
+          @minRooms="filters.minRooms = $event"
+          @minSquareMeters="filters.minSquareMeters = $event"
+          @shortRentalPeriod="filters.shortRentalPeriod = $event"
+          @firstFloor="filters.firstFloor = $event"
+        />
+      </details>
 
-  <hr>
+      <hr>
 
-  <Apartment v-for="apt in display" :key="apt.productId" :data="apt" />
-
+      <Apartment v-for="apt in display" :key="apt.productId" :data="apt" />
+    </div>
+    <div>
+      <footer>
+        Av <a href="https://adriang.se">Adrian Göransson</a>.
+        Mer information på <a href="https://github.com/adriangoransson/afb">GitHub</a>.
+      </footer>
+    </div>
   </div>
 </template>
 
@@ -139,6 +146,7 @@ export default {
 
 <style>
   body {
+    margin: 0;
     line-height: 1.2rem;
     font-family:  -apple-system,
                   BlinkMacSystemFont,
@@ -152,9 +160,32 @@ export default {
                   sans-serif;
   }
 
+  html, body, #app {
+    height: 100%;
+  }
+
+  a {
+    color: hsl(200, 100%, 30%);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
   #app {
     max-width: 700px;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #app div:first-child {
+    flex: 1 0 auto;
+  }
+
+  #app div:last-child {
+    flex-shrink: 0;
   }
 
   #app h1 {
@@ -172,5 +203,11 @@ export default {
     font-size: 1.2rem;
     font-weight: bold;
     /* text-align: center; */
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.8rem;
   }
 </style>
