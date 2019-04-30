@@ -20,7 +20,7 @@
     <input v-model="shortRentalPeriod" id="9-month-rental" type="checkbox">
 
     <label for="max-rent">Max hyra</label>
-    <input v-model.number="rent" id="max-rent" type="range" min="0" :max="maxRent" step="100">
+    <input v-model.number="rent" id="max-rent" type="range" min="0" :max="maxRent + 100" step="100">
     {{ rent }} kr
   </div>
 </template>
