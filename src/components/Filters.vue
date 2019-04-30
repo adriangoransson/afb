@@ -5,10 +5,10 @@
       <select v-model="area" id="areas">
         <option :value="null">Alla</option>
         <option
-          v-for="(areaCount, area) in areas"
-          :key="area"
-          :value="area"
-        >{{ area }} ({{ areaCount }})</option>
+          v-for="(key, index) in sortedAreas"
+          :key="index"
+          :value="key"
+        >{{ key }} ({{ areas[key] }})</option>
       </select>
     </div>
 
@@ -61,6 +61,10 @@ export default {
   },
 
   computed: {
+    sortedAreas() {
+      return Object.keys(this.areas).sort();
+    },
+
     area: {
       get() {
         return this.filters.area;

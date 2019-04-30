@@ -116,7 +116,7 @@ export default {
           this.filters.rent = this.maxRent;
 
           const areaCount = (this.areas[area] || 0) + 1;
-          this.areas[area] = areaCount;
+          this.$set(this.areas, area, areaCount);
 
           return {
             ...item,
