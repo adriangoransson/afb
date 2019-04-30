@@ -12,7 +12,7 @@
       {{ data.area }}, {{ data.address }}
     </div>
     <div v-if="extendedInfo && details.productId" class="details">
-      <a target="_blank" :href="`https://www.afbostader.se/lediga-bostader/bostadsdetalj/?obj=${data.productId}`">
+      <a target="_blank" :href="`https://www.afbostader.se/lediga-bostader/bostadsdetalj/?mode=0&area=${data.area}&obj=${data.productId}`">
         Öppna hos AFB
       </a>
 
