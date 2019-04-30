@@ -112,7 +112,7 @@ export default {
           } = item;
 
           const rent = parseInt(item.rent, 10);
-          this.maxRent = Math.max(this.maxRent, rent);
+          this.maxRent = Math.max(this.maxRent, rent + 100);
           this.filters.rent = this.maxRent;
 
           const areaCount = (this.areas[area] || 0) + 1;

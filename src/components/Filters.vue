@@ -39,7 +39,7 @@
         id="max-rent"
         type="range"
         min="1000"
-        :max="maxRent + 100"
+        :max="maxRent"
         step="100"
       >
     </div>
