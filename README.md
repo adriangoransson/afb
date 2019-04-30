@@ -1,29 +1,16 @@
-# afb
+# AF Bostadssök
 
-## Project setup
-```
-yarn install
-```
+Faster, more informative frontend for searching apartments at [AF Bostäder](https://www.afbostader.se).
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## Build details
+This project was scaffolded with [Vue cli](https://cli.vuejs.org/).
+Entrypoint: [main.js](./src/main.js) and [App.vue](./src/App.vue).
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+Airbnb style javascript lint.
 
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+| Description                              | Command        |
+| ---------------------------------------- | -------------- |
+| Project setup                            | `yarn install` |
+| Compiles and hot-reloads for development | `yarn serve`   |
+| Compiles and minifies for production     | `yarn build`   |
+| Lints and fixes files                    | `yarn lint`    |
