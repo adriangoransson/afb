@@ -43,7 +43,7 @@ export default {
     return {
       data: [],
       areas: {},
-      maxRent: 0,
+      maxRent: 13000,
       filters: {
         area: null,
         rent: 0,

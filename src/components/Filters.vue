@@ -38,7 +38,7 @@
         v-model.number="rent"
         id="max-rent"
         type="range"
-        min="0"
+        min="1000"
         :max="maxRent + 100"
         step="100"
       >
