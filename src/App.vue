@@ -19,8 +19,9 @@
 
       <hr>
 
-      <small v-if="display.length < data.length">
-        Visar {{ display.length }} av {{ data.length }} lägenhet{{ data.length !== 1 ? 'er' : '' }}
+      <small>
+        <span v-if="display.length < data.length">Visar {{ display.length }} av</span>
+        {{ data.length }} lägenhet{{ data.length !== 1 ? 'er' : '' }}
       </small>
 
       <Apartment v-for="apt in display" :key="apt.productId" :data="apt" />
