@@ -2,7 +2,7 @@
   <div class="filters">
     <div class="form-field">
       <label for="areas">Områden</label>
-      <select v-model="area">
+      <select v-model="area" id="areas">
         <option :value="null">Alla</option>
         <option
           v-for="(areaCount, area) in areas"
