@@ -11,6 +11,7 @@
       @minRooms="filters.minRooms = $event"
       @minSquareMeters="filters.minSquareMeters = $event"
       @shortRentalPeriod="filters.shortRentalPeriod = $event"
+      @firstFloor="filters.firstFloor = $event"
     />
 
   <Apartment v-for="apt in display" :key="apt.productId" :data="apt" />
@@ -34,6 +35,7 @@ export default {
         minRooms: 1,
         minSquareMeters: 1,
         shortRentalPeriod: false,
+        firstFloor: true,
       },
     };
   },
@@ -46,6 +48,7 @@ export default {
         rooms,
         rentalPeriods,
         sqrMtrs,
+        floor,
       }) => {
         if (this.filters.area && this.filters.area !== area) {
           return false;
@@ -64,6 +67,10 @@ export default {
         }
 
         if (this.filters.shortRentalPeriod === true && rentalPeriods !== 9) {
+          return false;
+        }
+
+        if (this.filters.firstFloor === false && floor === 1) {
           return false;
         }
 

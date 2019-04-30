@@ -16,8 +16,11 @@
     <input v-model.number="minSquareMeters" id="min-square-meters" type="range" min="0" step="5">
     {{ minSquareMeters }} kvm
 
-    <label for="9-month-rental">9-månaders hyra</label>
+    <label for="9-month-rental">Endast 9-månaders hyra</label>
     <input v-model="shortRentalPeriod" id="9-month-rental" type="checkbox">
+
+    <label for="show-first-floor">Visa lägenheter på första våningen</label>
+    <input v-model="firstFloor" id="show-first-floor" type="checkbox">
 
     <label for="max-rent">Max hyra</label>
     <input v-model.number="rent" id="max-rent" type="range" min="0" :max="maxRent + 100" step="100">
@@ -87,6 +90,16 @@ export default {
 
       set(value) {
         this.$emit('rent', value);
+      },
+    },
+
+    firstFloor: {
+      get() {
+        return this.filters.firstFloor;
+      },
+
+      set(value) {
+        this.$emit('firstFloor', value);
       },
     },
   },
