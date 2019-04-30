@@ -161,7 +161,14 @@ export default {
 
   .maps, .image-container {
     overflow-x: scroll;
+  }
+
+  .image-container img {
     background: white;
+  }
+
+  .image-container img[alt] {
+    background: transparent;
   }
 
   h2 {
