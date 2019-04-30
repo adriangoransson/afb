@@ -1,6 +1,127 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <h1>Welcome to Your Vue.js App</h1>
+    <h1>Lediga bostäder på AF Bostäder</h1>
+
+    <Filters
+      :areas="areas"
+      :filters="filters"
+      :maxRent="maxRent"
+      @area="filters.area = $event"
+      @rent="filters.rent = $event"
+      @minRooms="filters.minRooms = $event"
+      @minSquareMeters="filters.minSquareMeters = $event"
+      @shortRentalPeriod="filters.shortRentalPeriod = $event"
+    />
+
+  <Apartment v-for="apt in display" :key="apt.id" :data="apt" />
+
   </div>
 </template>
+
+<script>
+import Apartment from './components/Apartment.vue';
+import Filters from './components/Filters.vue';
+
+export default {
+  data() {
+    return {
+      data: [],
+      areas: {},
+      maxRent: 0,
+      filters: {
+        area: null,
+        rent: 0,
+        minRooms: 1,
+        minSquareMeters: 1,
+        shortRentalPeriod: false,
+      },
+    };
+  },
+
+  computed: {
+    display() {
+      return this.data.filter(({
+        area,
+        rent,
+        rooms,
+        rentalPeriods,
+        sqrMtrs,
+      }) => {
+        if (this.filters.area && this.filters.area !== area) {
+          return false;
+        }
+
+        if (this.filters.rent && this.filters.rent < rent) {
+          return false;
+        }
+
+        if (this.filters.minRooms && this.filters.minRooms > rooms) {
+          return false;
+        }
+
+        if (this.filters.minSquareMeters && this.filters.minSquareMeters > sqrMtrs) {
+          return false;
+        }
+
+        if (this.filters.shortRentalPeriod === true && rentalPeriods !== 9) {
+          return false;
+        }
+
+        return true;
+      });
+    },
+  },
+
+  created() {
+    this.fetch();
+  },
+
+  methods: {
+    parse(data) {
+      return data
+        .filter(item => item.type === 'Lägenhet')
+        .map((item) => {
+          const {
+            area,
+            shortDescription,
+            rentalPeriods,
+            sqrMtrs,
+            floor,
+          } = item;
+
+          const rent = parseInt(item.rent, 10);
+          this.maxRent = Math.max(this.maxRent, rent);
+          this.filters.rent = this.maxRent;
+
+          const areaCount = (this.areas[area] || 0) + 1;
+          this.areas[area] = areaCount;
+
+          return {
+            ...item,
+            rent,
+            rooms: Number(shortDescription.toLowerCase().match(/([\d]+) rum/)[1]),
+            sqrMtrs: Number(sqrMtrs),
+            floor: Number(floor),
+            rentalPeriods: Number(rentalPeriods),
+          };
+        });
+    },
+
+    async fetch() {
+      const resp = await fetch('https://www.afbostader.se/redimo/rest/vacantproducts');
+      const json = await resp.json();
+      if (json.error !== null) {
+        this.error = json.error;
+        return;
+      }
+
+      this.data = this.parse(json.product);
+    },
+  },
+
+  components: {
+    Apartment,
+    Filters,
+  },
+};
+</script>
