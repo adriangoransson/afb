@@ -202,7 +202,7 @@ export default {
   .filters summary {
     font-size: 1.2rem;
     font-weight: bold;
-    /* text-align: center; */
+    cursor: pointer;
   }
 
   footer {
