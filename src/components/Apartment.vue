@@ -62,7 +62,9 @@
 
       <p>{{ details.descriptionText }}</p>
 
-      <p><a target="_blank" :href="blueprintURL"><img :src="blueprintURL" alt="Ritning"></a></p>
+      <p class="image-container">
+        <a target="_blank" :href="blueprintURL"><img :src="blueprintURL" alt="Ritning"></a>
+      </p>
 
       <div class="maps">
         <img :src="mapsURL" alt="Satellite view">
@@ -157,8 +159,9 @@ export default {
     }
   }
 
-  .maps {
+  .maps, .image-container {
     overflow-x: scroll;
+    background: white;
   }
 
   h2 {
