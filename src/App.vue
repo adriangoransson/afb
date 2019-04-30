@@ -69,7 +69,7 @@ export default {
           return false;
         }
 
-        if (this.filters.rent && this.filters.rent < rent) {
+        if (this.filters.rent < rent) {
           return false;
         }
 
