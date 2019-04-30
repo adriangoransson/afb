@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <h1>Lediga bostäder på AF Bostäder</h1>
+    <h1>Lediga lägenheter på AF Bostäder</h1>
 
+    <details class="filters"><summary>Filtrera</summary>
     <Filters
       :areas="areas"
       :filters="filters"
@@ -13,6 +14,9 @@
       @shortRentalPeriod="filters.shortRentalPeriod = $event"
       @firstFloor="filters.firstFloor = $event"
     />
+  </details>
+
+  <hr>
 
   <Apartment v-for="apt in display" :key="apt.productId" :data="apt" />
 
@@ -132,3 +136,41 @@ export default {
   },
 };
 </script>
+
+<style>
+  body {
+    line-height: 1.2rem;
+    font-family:  -apple-system,
+                  BlinkMacSystemFont,
+                  'Segoe UI',
+                  Roboto,
+                  Oxygen,
+                  Ubuntu,
+                  Cantarell,
+                  'Open Sans',
+                  'Helvetica Neue',
+                  sans-serif;
+  }
+
+  #app {
+    max-width: 700px;
+    margin: auto;
+  }
+
+  #app h1 {
+    line-height: 2rem;
+  }
+
+  @media (max-width: 720px) {
+    #app {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  .filters summary {
+    font-size: 1.2rem;
+    font-weight: bold;
+    /* text-align: center; */
+  }
+</style>

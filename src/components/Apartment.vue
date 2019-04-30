@@ -1,10 +1,14 @@
 <template>
   <div class="outer">
     <div @click="showMore" class="title">
-      {{ data.rooms }} rum, {{ data.sqrMtrs }} kvm. Våning {{ data.floor }}.
-      <span v-if="shortRentalPeriod">9 månaders hyra. </span>
+      <h2>{{ data.rooms }} rum, {{ data.sqrMtrs }} kvm. <small>Våning {{ data.floor }}</small></h2>
+
       <span :title="priceInfo" class="tooltip">{{ data.rent }} kr</span>
-      <br>
+      <span v-if="shortRentalPeriod"> (9 månader)</span><br>
+
+      Inflytt&nbsp;{{ data.moveInDate }}.
+      Sista&nbsp;ansökan&nbsp;{{ data.reserveUntilDate }}<br>
+
       {{ data.area }}, {{ data.address }}
     </div>
     <div v-if="extendedInfo && details.productId" class="details">
@@ -110,7 +114,7 @@ export default {
 
     mapsURL() {
       const address = encodeURIComponent(`${this.details.addressgroup}, ${this.details.zipcode} ${this.details.city}`);
-      return `https://maps.google.com/maps/api/staticmap?center=${address}&zoom=17&size=440x300&maptype=satellite&markers=color:red%7Clabel:S%7C${address}&key=AIzaSyCbmn5bUDuTStyK9i09MDR5T2mVAzUNJLI`;
+      return `https://maps.google.com/maps/api/staticmap?center=${address}&zoom=17&size=440x300&maptype=satellite&markers=color:red%7Clabel:%7C${address}&key=AIzaSyCbmn5bUDuTStyK9i09MDR5T2mVAzUNJLI`;
     },
   },
 
@@ -133,7 +137,7 @@ export default {
 
 <style scoped>
   .outer {
-    padding: 10px;
+    padding: 10px 0;
   }
 
   .outer .title {
@@ -141,17 +145,25 @@ export default {
   }
 
   .outer .details {
+    margin-top: 10px;
     padding: 10px;
     background: hsl(0, 0%, 95%);
   }
 
-  .tooltip {
-    text-decoration: underline dotted;
-    cursor: help;
+  @media (pointer: fine) {
+    .tooltip {
+      text-decoration: underline dotted;
+      cursor: help;
+    }
   }
 
   .maps {
     overflow-x: scroll;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    margin: 5px 0;
   }
 
   tr {
