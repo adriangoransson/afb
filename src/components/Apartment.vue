@@ -11,69 +11,14 @@
 
       {{ data.area }}, {{ data.address }}
     </div>
-    <div v-if="extendedInfo && details.productId" class="details">
-      <a target="_blank" :href="afbURL">
-        Öppna hos AFB
-      </a>
 
-      <p>
-        <table>
-          <tr>
-            <th>Möbler</th>
-            <td>{{ details.furniture }}</td>
-          </tr>
-
-          <tr>
-            <th>Kök</th>
-            <td>{{ details.citchen }}</td>
-          </tr>
-
-          <tr>
-            <th>Balkong/Uteplats</th>
-            <td>{{ details.balkony }}</td>
-          </tr>
-
-          <tr>
-            <th>Hiss</th>
-            <td>{{ details.elevator }}</td>
-          </tr>
-
-          <tr>
-            <th>Värme/Vatten</th>
-            <td>{{ details.heating }}</td>
-          </tr>
-
-          <tr>
-            <th>El</th>
-            <td>{{ details.electricity }}</td>
-          </tr>
-
-          <tr>
-            <th>Förråd</th>
-            <td>{{ details.storeIncluded }}</td>
-          </tr>
-
-          <tr>
-            <th>Läge</th>
-            <td>{{ details.location }}</td>
-          </tr>
-        </table>
-      </p>
-
-      <p>{{ details.descriptionText }}</p>
-
-      <p class="image-container">
-        <a target="_blank" :href="blueprintURL"><img :src="blueprintURL" alt="Ritning"></a>
-      </p>
-
-      <div class="maps">
-        <img :src="mapsURL" alt="Satellite view">
-      </div>
-    </div>
+    <ApartmentDetails v-if="extendedInfo && details.productId" :data="details" />
   </div>
 </template>
 
 <script>
+import ApartmentDetails from './ApartmentDetails.vue';
+
 export default {
   props: {
     data: {
@@ -109,19 +54,6 @@ export default {
     yearlyRent() {
       return `${Math.round((this.data.rent * 9) / 12)} kr/månad för ett år`;
     },
-
-    afbURL() {
-      return `https://www.afbostader.se/lediga-bostader/bostadsdetalj/?mode=0&area=${this.data.area}&obj=${this.data.productId}`;
-    },
-
-    blueprintURL() {
-      return `https://www.afbostader.se${this.details.blueprint}`;
-    },
-
-    mapsURL() {
-      const address = encodeURIComponent(`${this.details.addressgroup}, ${this.details.zipcode} ${this.details.city}`);
-      return `https://maps.google.com/maps/api/staticmap?center=${address}&zoom=17&size=440x300&maptype=satellite&markers=color:red%7Clabel:%7C${address}&key=AIzaSyCbmn5bUDuTStyK9i09MDR5T2mVAzUNJLI`;
-    },
   },
 
   methods: {
@@ -138,22 +70,16 @@ export default {
       this.details = await data.json();
     },
   },
+
+  components: {
+    ApartmentDetails,
+  },
 };
 </script>
 
 <style scoped>
   .outer {
     padding: 10px 0;
-  }
-
-  .outer .title {
-    cursor: pointer;
-  }
-
-  .outer .details {
-    margin-top: 10px;
-    padding: 10px;
-    background: hsl(0, 0%, 95%);
   }
 
   @media (pointer: fine) {
@@ -163,21 +89,12 @@ export default {
     }
   }
 
-  .maps, .image-container {
-    overflow-x: scroll;
+  .title {
+    cursor: pointer;
   }
 
-  h2 {
+  .title h2 {
     font-size: 1.4rem;
     margin: 5px 0;
-  }
-
-  tr {
-    margin-top: 3px;
-  }
-
-  th {
-    text-align: left;
-    padding-right: 15px;
   }
 </style>
