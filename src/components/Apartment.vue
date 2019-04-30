@@ -167,14 +167,6 @@ export default {
     overflow-x: scroll;
   }
 
-  .image-container img {
-    background: white;
-  }
-
-  .image-container img[alt] {
-    background: transparent;
-  }
-
   h2 {
     font-size: 1.4rem;
     margin: 5px 0;
