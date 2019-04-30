@@ -12,7 +12,7 @@
       {{ data.area }}, {{ data.address }}
     </div>
     <div v-if="extendedInfo && details.productId" class="details">
-      <a target="_blank" :href="`https://www.afbostader.se/lediga-bostader/bostadsdetalj/?mode=0&area=${data.area}&obj=${data.productId}`">
+      <a target="_blank" :href="afbURL">
         Öppna hos AFB
       </a>
 
@@ -108,6 +108,10 @@ export default {
 
     yearlyRent() {
       return `${Math.round((this.data.rent * 9) / 12)} kr/månad för ett år`;
+    },
+
+    afbURL() {
+      return `https://www.afbostader.se/lediga-bostader/bostadsdetalj/?mode=0&area=${this.data.area}&obj=${this.data.productId}`;
     },
 
     blueprintURL() {
