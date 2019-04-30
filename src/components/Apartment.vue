@@ -1,13 +1,13 @@
 <template>
   <div class="outer">
     <div @click="showMore" class="title">
-      {{ data.rooms }} rum, {{ data.squareMeters }} kvm. Våning {{ data.floor }}.
+      {{ data.rooms }} rum, {{ data.sqrMtrs }} kvm. Våning {{ data.floor }}.
       <span v-if="shortRentalPeriod">9 månaders hyra. </span>
       <span :title="priceInfo" class="tooltip">{{ data.rent }} kr</span>
       <br>
       {{ data.area }}, {{ data.address }}
     </div>
-    <div v-if="extendedInfo">
+    <div v-if="extendedInfo && details.productId">
       <pre>{{ details }}</pre>
       <a :href="blueprintURL">
         <img :src="blueprintURL" alt="Ritning">

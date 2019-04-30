@@ -13,7 +13,7 @@
       @shortRentalPeriod="filters.shortRentalPeriod = $event"
     />
 
-  <Apartment v-for="apt in display" :key="apt.id" :data="apt" />
+  <Apartment v-for="apt in display" :key="apt.productId" :data="apt" />
 
   </div>
 </template>
