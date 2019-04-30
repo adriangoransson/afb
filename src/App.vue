@@ -37,7 +37,7 @@ export default {
         area: null,
         rent: 0,
         minRooms: 1,
-        minSquareMeters: 1,
+        minSquareMeters: 0,
         shortRentalPeriod: false,
         firstFloor: true,
       },
