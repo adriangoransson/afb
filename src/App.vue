@@ -19,12 +19,22 @@
 
       <hr>
 
-      <small>
-        <span v-if="display.length < data.length">Visar {{ display.length }} av</span>
-        {{ data.length }} lägenhet{{ data.length !== 1 ? 'er' : '' }}
-      </small>
+      <div v-if="error" style="text-align: center">
+        Fel vid hämtning av data från <a href="https://www.afbostader.se/">AF Bostäder</a>
+        <pre>{{ error }}</pre>
+      </div>
 
-      <Apartment v-for="apt in display" :key="apt.productId" :data="apt" />
+      <div v-else>
+        <small>
+          <span v-if="display.length < data.length">Visar {{ display.length }} av </span>
+
+          {{ loading ? 'Hämtar' : data.length }}
+
+          lägenhet{{ data.length !== 1 ? 'er' : '' }}
+        </small>
+
+        <Apartment v-for="apt in display" :key="apt.productId" :data="apt" />
+      </div>
     </div>
     <div>
       <footer>
@@ -45,6 +55,8 @@ export default {
       data: [],
       areas: {},
       maxRent: 13000,
+      error: null,
+      loading: true,
       filters: {
         area: null,
         rent: 0,
@@ -131,14 +143,21 @@ export default {
     },
 
     async fetch() {
-      const resp = await fetch('https://www.afbostader.se/redimo/rest/vacantproducts');
-      const json = await resp.json();
-      if (json.error !== null) {
-        this.error = json.error;
-        return;
-      }
+      try {
+        const resp = await fetch('https://www.afbostader.se/redimo/rest/vacantproducts');
+        const json = await resp.json();
 
-      this.data = this.parse(json.product);
+        if (json.error !== null) {
+          this.error = json.error;
+          return;
+        }
+
+        this.data = this.parse(json.product);
+      } catch (e) {
+        this.error = e;
+      } finally {
+        this.loading = false;
+      }
     },
   },
 
