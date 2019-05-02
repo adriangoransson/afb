@@ -12,7 +12,17 @@
       {{ data.area }}, {{ data.address }}
     </div>
 
-    <ApartmentDetails v-if="extendedInfo && details.productId" :data="details" />
+    <div v-if="extendedInfo">
+      <ApartmentDetails v-if="details.productId" :data="details" />
+
+      <p v-if="loading">
+        Hämtar mer information...
+      </p>
+      <p v-else-if="error">
+        Kunde inte hämta mer information
+        <pre>{{ error }}</pre>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -29,6 +39,7 @@ export default {
   data() {
     return {
       loading: false,
+      error: null,
       details: null,
       extendedInfo: false,
     };
@@ -60,14 +71,30 @@ export default {
     async showMore() {
       this.extendedInfo = !this.extendedInfo;
 
-      if (this.details !== null) {
+      // Reset and try again
+      if (this.extendedInfo && this.error !== null) {
+        this.error = null;
+        this.details = null;
+      } else if (this.details !== null) {
         return;
       }
 
       this.details = {};
+      // Slight delay to avoid flashing loading indicator when response is fast
+      setTimeout(() => {
+        if (!this.error && !this.details.productId) {
+          this.loading = true;
+        }
+      }, 300);
 
-      const data = await fetch(`https://www.afbostader.se/redimo/rest/vacantproducts/${this.data.productId}`);
-      this.details = await data.json();
+      try {
+        const data = await fetch(`https://www.afbostader.se/redimo/rest/vacantproducts/${this.data.productId}`);
+        this.details = await data.json();
+      } catch (e) {
+        this.error = e;
+      } finally {
+        this.loading = false;
+      }
     },
   },
 
