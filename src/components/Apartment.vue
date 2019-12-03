@@ -3,7 +3,7 @@
     <div @click="showMore" class="title">
       <h2>{{ data.rooms }} rum, {{ data.sqrMtrs }} kvm. <small>Våning {{ data.floor }}</small></h2>
 
-      <span :title="priceInfo" class="tooltip">{{ data.rent }} kr</span>
+      {{ data.rent }} kr <small class="price-info">{{ priceInfo }}</small>
       <span v-if="shortRentalPeriod"> (9 månader)</span><br>
 
       Inflytt&nbsp;{{ data.moveInDate }}.
@@ -109,13 +109,6 @@ export default {
     padding: 10px 0;
   }
 
-  @media (pointer: fine) {
-    .tooltip {
-      text-decoration: underline dotted;
-      cursor: help;
-    }
-  }
-
   .title {
     cursor: pointer;
   }
@@ -123,5 +116,10 @@ export default {
   .title h2 {
     font-size: 1.4rem;
     margin: 5px 0;
+  }
+
+  .title .price-info {
+    color: rgb(50, 50, 50);
+    font-style: italic;
   }
 </style>
