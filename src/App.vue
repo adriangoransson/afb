@@ -8,12 +8,7 @@
           :areas="areas"
           :filters="filters"
           :maxRent="maxRent"
-          @areas="filters.areas = $event"
-          @rent="filters.rent = $event"
-          @minRooms="filters.minRooms = $event"
-          @minSquareMeters="filters.minSquareMeters = $event"
-          @shortRentalPeriod="filters.shortRentalPeriod = $event"
-          @firstFloor="filters.firstFloor = $event"
+          @filters="setFilter"
         />
       </details>
 
@@ -49,22 +44,33 @@
 import Apartment from './components/Apartment.vue';
 import Filters from './components/Filters.vue';
 
+const LS_KEY = 'AFB-LS';
+const loadLS = () => JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+
 export default {
   data() {
+    const filters = {
+      areas: [],
+      rent: 0,
+      minRooms: 1,
+      minSquareMeters: 0,
+      shortRentalPeriod: false,
+      firstFloor: true,
+    };
+
+    const storedFilters = loadLS();
+
+    Object.keys(storedFilters).forEach((key) => {
+      filters[key] = storedFilters[key];
+    });
+
     return {
       data: [],
       areas: {},
       maxRent: 13000,
       error: null,
       loading: true,
-      filters: {
-        areas: [],
-        rent: 0,
-        minRooms: 1,
-        minSquareMeters: 0,
-        shortRentalPeriod: false,
-        firstFloor: true,
-      },
+      filters,
     };
   },
 
@@ -140,6 +146,15 @@ export default {
             rentalPeriods: Number(rentalPeriods),
           };
         });
+    },
+
+    setFilter(key, value) {
+      const stored = loadLS();
+
+      this.filters[key] = value;
+      stored[key] = value;
+
+      localStorage.setItem(LS_KEY, JSON.stringify(stored));
     },
 
     async fetch() {

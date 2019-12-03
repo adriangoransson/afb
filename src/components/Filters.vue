@@ -70,7 +70,7 @@ export default {
       },
 
       set(value) {
-        this.$emit('areas', value);
+        this.$emit('filters', 'areas', value);
       },
     },
 
@@ -80,7 +80,7 @@ export default {
       },
 
       set(value) {
-        this.$emit('minRooms', value);
+        this.$emit('filters', 'minRooms', value);
       },
     },
 
@@ -90,7 +90,7 @@ export default {
       },
 
       set(value) {
-        this.$emit('minSquareMeters', value);
+        this.$emit('filters', 'minSquareMeters', value);
       },
     },
 
@@ -100,7 +100,7 @@ export default {
       },
 
       set(value) {
-        this.$emit('shortRentalPeriod', value);
+        this.$emit('filters', 'shortRentalPeriod', value);
       },
     },
 
@@ -110,7 +110,7 @@ export default {
       },
 
       set(value) {
-        this.$emit('rent', value);
+        this.$emit('filters', 'rent', value);
       },
     },
 
@@ -120,7 +120,7 @@ export default {
       },
 
       set(value) {
-        this.$emit('firstFloor', value);
+        this.$emit('filters', 'firstFloor', value);
       },
     },
   },
