@@ -8,7 +8,7 @@
           :areas="areas"
           :filters="filters"
           :maxRent="maxRent"
-          @area="filters.area = $event"
+          @areas="filters.areas = $event"
           @rent="filters.rent = $event"
           @minRooms="filters.minRooms = $event"
           @minSquareMeters="filters.minSquareMeters = $event"
@@ -58,7 +58,7 @@ export default {
       error: null,
       loading: true,
       filters: {
-        area: null,
+        areas: [],
         rent: 0,
         minRooms: 1,
         minSquareMeters: 0,
@@ -78,7 +78,7 @@ export default {
         sqrMtrs,
         floor,
       }) => {
-        if (this.filters.area && this.filters.area !== area) {
+        if (this.filters.areas.length && !this.filters.areas.includes(area)) {
           return false;
         }
 

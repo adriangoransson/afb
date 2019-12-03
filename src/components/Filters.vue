@@ -2,8 +2,7 @@
   <div class="filters">
     <div class="form-field">
       <label for="areas">Områden</label>
-      <select v-model="area" id="areas">
-        <option :value="null">Alla</option>
+      <select v-model="selectedAreas" id="areas" multiple required>
         <option
           v-for="(key, index) in sortedAreas"
           :key="index"
@@ -65,13 +64,13 @@ export default {
       return Object.keys(this.areas).sort();
     },
 
-    area: {
+    selectedAreas: {
       get() {
-        return this.filters.area;
+        return this.filters.areas;
       },
 
       set(value) {
-        this.$emit('area', value);
+        this.$emit('areas', value);
       },
     },
 
