@@ -120,7 +120,7 @@ export default {
   methods: {
     parse(data) {
       return data
-        .filter(item => item.type === 'Lägenhet')
+        .filter((item) => item.type === 'Lägenhet')
         .map((item) => {
           const {
             area,
