@@ -88,7 +88,7 @@ export default {
       }, 300);
 
       try {
-        const data = await fetch(`https://www.afbostader.se/redimo/rest/vacantproducts/${this.data.productId}`);
+        const data = await fetch(`https://api.afbostader.se:442/redimo/rest/vacantproducts/${this.data.productId}`);
         this.details = await data.json();
       } catch (e) {
         this.error = e;
