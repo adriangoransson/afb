@@ -159,7 +159,7 @@ export default {
 
     async fetch() {
       try {
-        const resp = await fetch('https://www.afbostader.se/redimo/rest/vacantproducts');
+        const resp = await fetch('https://api.afbostader.se:442/redimo/rest/vacantproducts');
         const json = await resp.json();
 
         if (json.error !== null) {
